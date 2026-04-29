@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ʀɪᴄʜ ᴛʀᴀᴅɪɴɢ</title>
+    <style>
+        :root {
+            --neon-cyan: #00f7c5;
+            --neon-pink: #ff00ff;
+            --neon-green: #0bffa5;
+            --neon-red: #ff2e2e;
+            --glass-bg: rgba(0, 0, 0, 0.9);
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%; overflow: hidden;
+            font-family: 'Segoe UI', sans-serif; background: #000;
+        }
+
+        /* অরিজিনাল সাইট ব্যাকগ্রাউন্ড */
+        iframe#bg-site {
+            width: 100%; height: 100%; border: none;
+            position: absolute; top: 0; left: 0; z-index: 1;
+        }
+
+        /* হুবহু অরিজিনাল বক্স ডিজাইন */
+        #predictionBox {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 185px; 
+            background: var(--glass-bg);
+            border-radius: 25px;
+            z-index: 9999;
+            cursor: grab;
+            border-top: 3px solid rgba(255, 255, 255, 0.4);
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 247, 197, 0.2);
+            animation: floating 3s ease-in-out infinite;
+            touch-action: none;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotateX(2deg); }
+            50% { transform: translateY(-8px) rotateX(-2deg); }
+        }
+
+        .inner-screen {
+            margin: 10px;
+            padding: 15px 10px;
+            background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        #boxTitle {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--neon-cyan);
+            margin-bottom: 12px;
+        }
+
+        /* রেজাল্ট এর বড় ফন্ট */
+        .res-val {
+            font-size: 32px;
+            font-weight: 900;
+            margin: 2px 0;
+            text-transform: uppercase;
+        }
+
+        .big { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
+        .small { color: var(--neon-red); text-shadow: 0 0 15px var(--neon-red); }
+
+        .sub-info { font-weight: bold; font-size: 10px; color: #fff; margin-top: 3px; }
+        .timer { font-size: 11px; color: var(--neon-cyan); font-family: monospace; font-weight: bold; margin-top: 5px; }
+
+        /* ইনপুট ও বাটন ডিজাইন */
+        #accessKey {
+            width: 85%; padding: 8px; border-radius: 12px;
+            border: 1px solid var(--neon-cyan); background: #000;
+            color: #fff; margin-bottom: 10px; text-align: center; font-size: 11px;
+        }
+
+        #loginBtn {
+            width: 90%; padding: 8px; border-radius: 12px;
+            background: linear-gradient(180deg, var(--neon-cyan), #008168);
+            color: #000; font-weight: 900; font-size: 10px; border: none; cursor: pointer;
+        }
+
+        .tg-btn {
+            display: block; margin-top: 10px; text-decoration: none;
+            color: #fff; background: #24A1DE; padding: 6px;
+            border-radius: 10px; font-size: 10px; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<iframe id="bg-site" src="https://deshclub1.com/#/register?invitationCode=27457100503"><https://deshclub1.com/#/home/AllLotteryGames/WinGo?typeId=30></iframe>
+
+<div id="predictionBox">
+    <div class="inner-screen">
+        <div id="boxTitle">ʀɪᴄʜ ᴛʀᴀᴅɪɴɢ</div>
+        
+        <div id="loginUI">
+            <input type="text" id="accessKey" placeholder="ENTER KEY">
+            <button id="loginBtn" onclick="activate()">ACTIVATE</button>
+        </div>
+
+        <div id="predictionUI" style="display:none;">
+            <div id="p_val" class="res-val big">---</div>
+            <div id="p_num_color" class="sub-info">NUM: - | COLOR: -</div>
+            <div id="p_id" class="sub-info" style="color: #aaa;">NEXT: ANALYZING</div>
+            <div id="timer" class="timer">SYNCING...</div>
+        </div>
+
+        <a href="https://t.me/saim_69_team" target="_blank" class="tg-btn">JOIN TELEGRAM</a>
+    </div>
+</div>
+
+<script>
+    // ১. পাসওয়ার্ড সেটিংস
+    const correctKey = "kop787"; // আপনার পাসওয়ার্ড এটি
+
+    function activate() {
+        let key = document.getElementById('accessKey').value;
+        if (key === correctKey) {
+            document.getElementById('loginUI').style.display = 'none';
+            document.getElementById('predictionUI').style.display = 'block';
+            runEngine();
+        } else {
+            alert("WRONG KEY! INBOX ADMIN.");
+        }
+    }
+
+    // ২. ড্র্যাগিং সিস্টেম (মোবাইল ও পিসি)
+    const box = document.getElementById('predictionBox');
+    let x = 0, y = 0, isDown = false;
+
+    const start = (e) => {
+        isDown = true;
+        const event = e.touches ? e.touches[0] : e;
+        x = event.clientX - box.offsetLeft;
+        y = event.clientY - box.offsetTop;
+    };
+
+    const move = (e) => {
+        if (!isDown) return;
+        const event = e.touches ? e.touches[0] : e;
+        box.style.left = (event.clientX - x) + 'px';
+        box.style.top = (event.clientY - y) + 'px';
+        box.style.bottom = 'auto'; box.style.right = 'auto';
+    };
+
+    box.addEventListener('mousedown', start);
+    box.addEventListener('touchstart', start);
+    window.addEventListener('mousemove', move);
+    window.addEventListener('touchmove', move);
+    window.addEventListener('mouseup', () => isDown = false);
+    window.addEventListener('touchend', () => isDown = false);
+
+    // ৩. প্রেডিকশন লজিক (প্রতি মিনিটের শুরুতে অটো আপডেট)
+    function runEngine() {
+        setInterval(() => {
+            let now = new Date();
+            let sec = now.getSeconds();
+            let remain = 60 - sec;
+            document.getElementById('timer').innerText = "00:" + (remain < 10 ? "0"+remain : remain);
+
+            if (sec === 0 || document.getElementById('p_val').innerText === "---") {
+                let isBig = Math.random() > 0.5;
+                let num = isBig ? [5,6,7,8,9][Math.floor(Math.random()*5)] : [0,1,2,3,4][Math.floor(Math.random()*5)];
+                let color = (num % 2 === 0) ? "RED" : "GREEN";
+                
+                document.getElementById('p_val').innerText = isBig ? "BIG" : "SMALL";
+                document.getElementById('p_val').className = "res-val " + (isBig ? "big" : "small");
+                document.getElementById('p_num_color').innerText = "NUM: " + num + " | " + color;
+                document.getElementById('p_id').innerText = "NEXT: " + (now.getFullYear()) + (now.getMonth()+1) + (now.getDate()) + (now.getHours()) + (now.getMinutes()+1);
+            }
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
